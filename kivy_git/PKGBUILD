@@ -1,6 +1,6 @@
 # Maintainer: Jashandeep Sohi <jashandeep.s.sohi@gmail.com>
 pkgname='python2-kivy_git'
-pkgver=ffe7662
+pkgver=4202.ffe7662
 pkgrel=1
 pkgdesc='A Python library for development of multi-touch enabled media rich applications.'
 arch=('i686'
@@ -31,7 +31,7 @@ md5sums=('SKIP')
 
 pkgver() {
   cd "$_gitname"
-  git describe --always | sed 's|-|.|g'
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
 build() {
