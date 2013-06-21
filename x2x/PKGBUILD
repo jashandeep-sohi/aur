@@ -1,35 +1,29 @@
 # Maintainer: Jashandeep Sohi <jashandeep.s.sohi@gmail.com>
-pkgname=x2x-git
-pkgver=20130211
-pkgrel=3
+pkgname=x2x_git
+pkgver=96.49c3131
+pkgrel=1
 pkgdesc="Allows the keyboard, mouse on one X display to be used to control another X display."
 arch=('i686' 'x86_64')
 url="https://github.com/dottedmag/x2x"
 license=('MIT')
 depends=('xorg-server')
 makedepends=('git')
+provides=('x2x')
+conflicts=('x2x')
 
-_gitroot=git://github.com/jashandeep-sohi/x2x.git
 _gitname=x2x
+source=('x2x::git+git://github.com/jashandeep-sohi/x2x.git')
+md5sums=('SKIP')
+
+
+pkgver() {
+  cd "$_gitname"
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
 
 build() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build"
-
+  cd "$_gitname"
   #
   # BUILD HERE
   #
@@ -39,7 +33,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_gitname-build"
+  cd "$_gitname"
   #make DESTDIR="$pkgdir" dist_man_MANS="" install
   make DESTDIR="$pkgdir" install
   install -D -m644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
