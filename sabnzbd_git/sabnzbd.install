@@ -1,0 +1,17 @@
+post_install() {
+ getent group "sabnzbd" >/dev/null || getent passwd "sabnzbd" >/dev/null || \
+  useradd "sabnzbd" \
+   --comment "SABnzbd Daemon" \
+   --home "/opt/sabnzbd" \
+   --create-home \
+   --system \
+   --shell "/bin/false" \
+   --user-group \
+   --skel "" 1> /dev/null 2> /dev/null
+ chmod --silent g=rwx,a+rx "/opt/sabnzbd"
+}
+
+post_remove() {
+ killall -KILL -u "sabnzbd"
+ getent passwd "sabnzbd" >/dev/null && userdel "sabnzbd"
+}
