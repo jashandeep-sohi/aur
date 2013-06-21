@@ -1,0 +1,44 @@
+# Maintainer: Jashandeep Sohi <jashandeep.s.sohi@gmail.com>
+pkgname=('cython3_git' 'cython2_git')
+pkgbase='cython_git'
+pkgver=0.19.138.g0f19c18
+pkgrel=1
+pkgdesc='C-Extensions for Python.'
+arch=('i686' 'x86_64')
+url='http://www.cython.org'
+license=('APACHE')
+
+_gitname='cython'
+source=('cython::git+https://github.com/cython/cython.git')
+md5sums=('SKIP')
+
+
+pkgver() {
+  cd "$_gitname"
+  git describe --always | sed 's|-|.|g'
+}
+
+package_cython3_git() {
+  depends=('python')
+  provides=('cython')
+  conflicts=('cython')
+  
+  cd "$_gitname"
+  python3 setup.py install --root="$pkgdir/" --optimize=1
+  
+  for fname in "$pkgdir"/usr/bin/*; do mv "$fname" "$fname"3; done;
+}
+
+package_cython2_git() {
+  depends=('python2')
+  provides=('cython2')
+  conflicts=('cython2')
+  
+  cd "$_gitname"
+  python2 setup.py install --root="$pkgdir/" --optimize=1
+  
+  for fname in "$pkgdir"/usr/bin/*; do mv "$fname" "$fname"2; done;
+}
+
+# vim:set ts=2 sw=2 et:
+
