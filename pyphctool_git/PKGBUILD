@@ -1,0 +1,30 @@
+
+# Maintainer: Jashandeep Sohi <jashandeep.s.sohi@gmail.com>
+pkgname=pyphctool_git
+pkgver=10.2804565
+pkgrel=1
+pkgdesc="A Python tool for finding and setting PHC VIDs."
+arch=('any')
+url="https://github.com/jashandeep-sohi/pyphctool"
+license=('GPL3')
+depends=('python')
+makedepends=('git')
+backup=('etc/phc/vids.conf')
+
+
+_gitname='pyphctool'
+source=('pyphctool::git+https://github.com/jashandeep-sohi/pyphctool.git')
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$_gitname"
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+package() {
+  cd "$_gitname"
+  python setup.py install --root="$pkgdir/" --optimize=1
+}
+
+# vim:set ts=2 sw=2 et:
+
