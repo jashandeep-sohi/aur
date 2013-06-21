@@ -17,39 +17,20 @@ depends=('python2'
          'openssl>=0.9.8')
 makedepends=('git')
 conflicts=('sabnzbd')
-source=('sabnzbd.systemd')
-md5sums=('863dfc3234a6ba76bb20e3e738cd463c')
+_gitname='sabnzbd'
+source=('sabnzbd.systemd'
+        'sabnzbd::git+https://github.com/sabnzbd/sabnzbd.git')
+md5sums=('863dfc3234a6ba76bb20e3e738cd463c'
+         'SKIP')
 install='sabnzbd.install'
 
-
-_gitroot="https://github.com/sabnzbd/sabnzbd.git"
-_gitname="sabnzbd"
-
 pkgver() {
-  cd $_gitname
+  cd "$_gitname"
   git describe --always | sed 's|-|.|g'
 }
 
-build() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-}
-
 package() {
-  cd "$srcdir/$_gitname-build"
+  cd "$_gitname"
   rm -rf win osx NSIS_Installer.nsi make_dmg.py Sample-PostProc.cmd
   
   mkdir -p "$pkgdir/usr/src/$pkgname"
