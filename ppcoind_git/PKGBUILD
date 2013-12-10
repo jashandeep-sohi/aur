@@ -35,7 +35,7 @@ build() {
 package() {
  cd "$srcdir"
  install -Dm755 "$pkgname/src/ppcoind" "$pkgdir/usr/bin/ppcoind"
- install -Dm640 -o ppcoind -g ppcoind "ppcoind.conf" "$pkgdir/etc/ppcoind/ppcoind.conf"
+ install -Dm640 "ppcoind.conf" "$pkgdir/etc/ppcoind/ppcoind.conf"
  install -Dm644 "ppcoind.service" "$pkgdir/usr/lib/systemd/system/ppcoind.service"
  install -Dm644 "ppcoind.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/ppcoind.conf"
  install -Dm644 "$pkgname/COPYING" "$pkgdir/usr/share/licenses/ppcoind/COPYING"

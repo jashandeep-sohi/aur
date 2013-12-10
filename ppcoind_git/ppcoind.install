@@ -1,6 +1,10 @@
 _user_name="ppcoind"
 _user_home="/var/lib/$_user_name"
 
+chown_conf() {
+ chown $_user_name: "/etc/ppcoind/ppcoind.conf"
+}
+
 pre_install() {
  if ! getent passwd $_user_name > /dev/null ; then
   useradd $_user_name \
@@ -17,3 +21,10 @@ pre_install() {
  fi
 }
 
+post_install() {
+ chown_conf
+}
+
+post_upgrade() {
+ chown_conf
+}
