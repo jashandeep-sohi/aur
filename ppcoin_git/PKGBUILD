@@ -2,8 +2,8 @@
 
 pkgname='ppcoind'
 pkgver=v0.3.0ppc.r26.g154b52a
-pkgrel=1
-pkgdesc='Official CLI implementation of the sustainable and secure cryptocurrency.'
+pkgrel=2
+pkgdesc='Official CLI implementation of Peercoin, the sustainable and secure cryptocurrency alternative to Bitcoin.'
 url='http://peercoin.net/'
 license=('MIT')
 install='ppcoind.install'
