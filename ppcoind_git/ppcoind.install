@@ -23,8 +23,10 @@ pre_install() {
 
 post_install() {
  chown_conf
+ systemd-tmpfiles --create ppcoind.conf
 }
 
 post_upgrade() {
  chown_conf
+ systemd-tmpfiles --create ppcoind.conf
 }
