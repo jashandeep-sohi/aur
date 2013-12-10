@@ -2,7 +2,7 @@
 
 pkgname='ppcoind'
 pkgver=v0.3.0ppc.r26.g154b52a
-pkgrel=2
+pkgrel=3
 pkgdesc='Official CLI implementation of Peercoin, the sustainable and secure cryptocurrency alternative to Bitcoin.'
 url='http://peercoin.net/'
 license=('MIT')
@@ -34,9 +34,8 @@ build() {
 
 package() {
  cd "$srcdir"
- 
  install -Dm755 "$pkgname/src/ppcoind" "$pkgdir/usr/bin/ppcoind"
- install -Dm644 "ppcoind.conf" "$pkgdir/etc/ppcoind/ppcoind.conf"
+ install -Dm640 -o ppcoind -g ppcoind "ppcoind.conf" "$pkgdir/etc/ppcoind/ppcoind.conf"
  install -Dm644 "ppcoind.service" "$pkgdir/usr/lib/systemd/system/ppcoind.service"
  install -Dm644 "ppcoind.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/ppcoind.conf"
  install -Dm644 "$pkgname/COPYING" "$pkgdir/usr/share/licenses/ppcoind/COPYING"
