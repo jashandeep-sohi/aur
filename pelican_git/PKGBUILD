@@ -1,7 +1,7 @@
 # Maintainer: Jashandeep Sohi <jashandeep.s.sohi@gmail.com>
 
-pkgname='python-pelican'
-pkgver=git_3.4.0.r28.gcb11bea
+pkgname='pelican'
+pkgver=git
 pkgrel=1
 pkgdesc='A static site generator, written in Python.'
 url='http://blog.getpelican.com/'
